@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e6e4e4;
+}
+
+header {
+    background-image: linear-gradient(to right, #68defc, #1766fa);
+    height: 8vh;
+}
+
+h1 {
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.container-fluid {
+    margin-top: 30px;
+}
+
+label {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#input-city {
+    background-color: white;
+    height: 40px;
+    padding-left: 10px;
+}
+
+#submit-city {
+    margin-top: 15px;
+    width: 319px;
+    border-radius: 3px;
+    background-color: #44d3f7;
+    font-weight: bolder;
+    border-color: white;
+}
+
+#submit-city:hover {
+    box-shadow: 0 0 5px #68defc, 0 0 20px #68defc, 0 0 50px #68defc;
+  }
+
+#current-forecast {
+    padding-top: 10px;
+    border: 2px black solid;
+    background-color: white;
+}
+
+h2 {
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+p { 
+    padding-left: 10px;
+}
+
+h3 {
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    font-size: 24px;
+}
+
+.card-body {
+    background-color: white;
+    border: black solid 2px;
+
+}
+
+h5 {
+    margin-left: 18px;
+    font-weight: bold;
+}
+
+img {
+    margin-left: 10px;
+}
+
+input {
+    margin-top: 10px;
+    margin-left: 2px;
+    width: 319px;
+    border: black 1px solid;
+    border-radius: 3px;
+    background-color: white;
+    font-weight: bolder;
+    cursor: pointer;
+   
+}
+
+hr {
+    width: 70%;
+    border: black solid 1px;
+    margin-left: 4px;
+    margin-top: 25px;
+}
+
+/* UV color index */
+.low {
+    background-color: #0dec0d;
+}
+
+.moderate {
+    background-color: yellow;
+}
+
+.high {
+    background-color: orange;
+}
+
+.veryhigh {
+    background-color: #dd2323;
+}
+
+.extreme {
+    background-color: #aa5ece;
+}
+

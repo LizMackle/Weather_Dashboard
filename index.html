@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Weather Dashboard</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="./Assets/style.css" />
+
+</head>
+
+<body>
+    <header>
+        <h1>Weather Dashboard &#127780;&#65039;</h1>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column-->
+            <div class="col-3">
+                <!-- input search box for city & search button -->
+                <form id="form-search">
+                    <label for="input-city">Search for a City:</label><br>
+                    <input id="input-city" type="text" size="35" placeholder="Enter a City" /><br>
+                    <button id="submit-city" type="submit">Search</button>
+                </form>
+                <hr>
+                <!-- search history of cities displayed in a column -->
+                <ul>
+                </ul>
+            </div>
+
+            <!-- right column -->
+            <div class="col-9">
+                <!-- shows current temperture for todays date for chosen city -->
+                <div id="current-forecast">
+                    <h2><span id="current-city"></span><img id="icon0" src="" /><span id="date0"></span></h2>
+                    <p>Temp: <span id="temp0"></span></p>
+                    <p>Wind: <span id="wind0"></span></p>
+                    <p>Humidity: <span id="humidity0"></span></p>
+                    <p>UV: <span id="uv0"></span></p>
+                    <br>
+                </div>
+
+                <!-- displays 5 day forecast weather cards -->
+                <h3>5-Day Forecast:</h3>
+                <div class="row" id="weather-cards">
+                    <div class="col">
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="./Assets/script.js"></script>
+
+</html>
