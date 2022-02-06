@@ -21,9 +21,8 @@ const weatherCards = document.getElementById("weather-cards");
 
 // // local Storage
 var previousSearches = [];
-renderHistory();
-
-
+var citySearches = localStorage.getItem("previousSearches");
+var previousCities = JSON.parse(citySearches);
 
 // current weather API fetched 
 function getCityWeather(city) {
@@ -51,60 +50,92 @@ function kelvinToCelcius(kelvin) {
 }
 
 
-function getCities(){
 
-    // retrieve the existing cities
-    var citySearches = localStorage.getItem("previousSearches");
+
+
+
+// function getCities(){
+
+//     // retrieve the existing cities
+//     var citySearches = localStorage.getItem("previousSearches");
     
-    if(!citySearches){
-        citySearches = "";
-    }
+//     if(!citySearches){
+//         citySearches = "";
+//     }
     
-    var previousCities = JSON.parse(citySearches);
-    if(!previousCities){
-        previousCities = []
-    }
-    return previousCities;
-}
+//     var previousCities = JSON.parse(citySearches);
+//     if(!previousCities){
+//         previousCities = [];
+//     }
+//     return previousCities;
+// }
 
 function saveCityToLocalStorage(name){
 
-    var previousCities = getCities();
-    // add 'name' to the existing cities
-    previousCities.push(name);
+    // var previousCities = getCities();
+    // // add 'name' to the existing cities
+    // previousCities.push(name);
 
     // resave the updated cities back in LS
     previousCities = JSON.stringify(previousCities);
     localStorage.setItem('previousSearches', previousCities);
 }
 
+function displaySearchHistory(){
 
-function renderHistory(){
-
-    // get all cities from local storage
-    var cities = getCities();
-
-
-    cityList.textContent = "";
-    // loop
-    for (let index = 0; index < cities.length; index++) {
-        const city = cities[index];
-        
-        // // for wach iteration you want to create li
-                    // create the last searched cities list
-            const historyItem = document.createElement("input");
-            historyItem.setAttribute("type", "text");
-            historyItem.setAttribute("readonly", true);
-            historyItem.setAttribute("value", city);
-            // on click of the displayed searched item
-            historyItem.addEventListener("click", function (event) {
-                // display the weather using the value of the item
-                getCityWeather(historyItem.value);
-            });
-            //append them
-            cityList.append(historyItem);
+    if (previousCities) {
+        // loop through the array
+        for (i = 0; i < previousCities.length; i++) {
+          // create the last searched cities list
+          const historyItem = document.createElement("input");
+          historyItem.setAttribute("type", "text");
+          historyItem.setAttribute("readonly", true);
+          historyItem.setAttribute("value", previousCities[i]);
+          // on click of the displayed searched item
+          historyItem.addEventListener("click", function (event) {
+            // display the weather using the value of the item
+            getCityWeather(historyItem.value);
+          });
+          //append them
+          cityList.append(historyItem);
+        }
+      }
     }
-}
+  
+
+//     // get all cities from local storage
+//     var cities = getCities();
+
+//     cityList.textContent = "";
+//     // loop
+//     for (let index = 0; index < cities.length; index++) {
+//         const city = cities[index];
+        
+//         // // for wach iteration you want to create li
+//                     // create the last searched cities list
+//             const historyItem = document.createElement("input");
+//             historyItem.setAttribute("type", "text");
+//             historyItem.setAttribute("readonly", true);
+//             historyItem.setAttribute(
+//                 "class",
+//                 "form-control d-block bg-white button"
+//             );
+//             historyItem.setAttribute("value", city);
+//             // on click of the displayed searched item
+//             historyItem.addEventListener("click", function (event) {
+//                 // display the weather using the value of the item
+//                 getCityWeather(historyItem.value);
+//             });
+//             //append them
+//             cityList.append(historyItem);
+//     }
+// }
+
+
+
+
+
+
 
 // Search for a city and and displays data on page
 searchForm.addEventListener('submit', function (event) {
@@ -112,8 +143,8 @@ searchForm.addEventListener('submit', function (event) {
     const city = chosenCity.value;
     getCityWeather(city)
         .then(function (data) {
-            // saveCityToLocalStorage(data.name);
-            // renderHistory();
+            saveCityToLocalStorage(data.name);
+            displaySearchHistory();
             currentCity.textContent = data.name;
             currentDate.textContent = moment
                 .unix(data.dt)
@@ -162,7 +193,6 @@ searchForm.addEventListener('submit', function (event) {
             }
         });
 })
-
 
 // Displayed in weather cards creating elements
 function futureForecastCol(date, temp, humidity, wind, icon) {
