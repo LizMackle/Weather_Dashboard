@@ -17,6 +17,5 @@ As a traveler, I want to see the weather outlook for multiple cities so that I c
 ## Git Hub Respository 
 https://github.com/LizMackle/Weather_Dashboard
 
-## 📌 [Published Page](insert link)
-Mock up img here
-
+## 📌 [Published Page](https://lizmackle.github.io/Weather_Dashboard/)
+![WeatherDashboard](https://user-images.githubusercontent.com/93589073/152684805-4aae2a62-5b00-49b0-a5b2-a02db503d2c5.PNG)
