@@ -96,7 +96,7 @@ input {
     background-color: white;
     font-weight: bolder;
     cursor: pointer;
-   
+    text-align: center;
 }
 
 hr {
