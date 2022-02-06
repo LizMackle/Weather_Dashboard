@@ -1,3 +1,5 @@
+$(document).ready(function () {
+    
 // open weather Unique API key
 const apiKey = "ccfd83f641462045a8c9f9a10efcd314";
 
@@ -50,10 +52,6 @@ function kelvinToCelcius(kelvin) {
 }
 
 
-
-
-
-
 // function getCities(){
 
 //     // retrieve the existing cities
@@ -70,6 +68,7 @@ function kelvinToCelcius(kelvin) {
 //     return previousCities;
 // }
 
+
 function saveCityToLocalStorage(name){
 
     // var previousCities = getCities();
@@ -81,26 +80,7 @@ function saveCityToLocalStorage(name){
     localStorage.setItem('previousSearches', previousCities);
 }
 
-function displaySearchHistory(){
 
-    if (previousCities) {
-        // loop through the array
-        for (i = 0; i < previousCities.length; i++) {
-          // create the last searched cities list
-          const historyItem = document.createElement("input");
-          historyItem.setAttribute("type", "text");
-          historyItem.setAttribute("readonly", true);
-          historyItem.setAttribute("value", previousCities[i]);
-          // on click of the displayed searched item
-          historyItem.addEventListener("click", function (event) {
-            // display the weather using the value of the item
-            getCityWeather(historyItem.value);
-          });
-          //append them
-          cityList.append(historyItem);
-        }
-      }
-    }
   
 
 //     // get all cities from local storage
@@ -130,10 +110,6 @@ function displaySearchHistory(){
 //             cityList.append(historyItem);
 //     }
 // }
-
-
-
-
 
 
 
@@ -242,3 +218,24 @@ function futureForecastCol(date, temp, humidity, wind, icon) {
 
     return col;
 };
+
+function displaySearchHistory(){
+
+    if (previousCities) {
+        // loop through the array
+        for (i = 0; i < previousCities.length; i++) {
+          // create the last searched cities list
+          const historyItem = document.createElement("input");
+          historyItem.setAttribute("type", "text");
+          historyItem.setAttribute("readonly", true);
+          historyItem.setAttribute("value", previousCities[i]);
+          // on click of the displayed searched item
+          historyItem.addEventListener("click", function (event) {
+            // display the weather using the value of the item
+            getCityWeather(historyItem.value);
+          });
+          cityList.append(historyItem);
+        }
+      }
+    }
+});
