@@ -21,6 +21,8 @@ $(document).ready(function () {
     // future 5 day forecast variables
     const weatherCards = document.getElementById("weather-cards");
 
+    displaySearchHistory();
+
     // // local Storage
     var previousSearches = [];
     // var citySearches
@@ -61,6 +63,14 @@ $(document).ready(function () {
 
     function saveCityToLocalStorage(name) {
         var previousCities = getCities();
+
+        // check for any duplicates
+        const found = previousCities.find((city) => city.toLowerCase() === name.toLowerCase());
+
+        if(found){
+            return; 
+        }
+
         // add 'name' to the existing cities
         previousCities.push(name);
 
@@ -72,7 +82,8 @@ $(document).ready(function () {
     function displaySearchHistory() {
         // get all cities from local storage
         var cities = getCities();
-        cityList.textContent = "";
+        console.log(cities);
+        cityList.text("");
         // loop through
         for (let index = 0; index < cities.length; index++) {
             const city = cities[index];
@@ -83,23 +94,19 @@ $(document).ready(function () {
             // on click of the displayed searched item
             historyItem.addEventListener("click", function (event) {
                 // display the weather using the value of the item
-                getCityWeather(historyItem.value);
+                searchWeather(historyItem.value);
             });
             //append them
             cityList.append(historyItem);
         }
     }
 
-    // Search for a city and and displays data on page
-    searchForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const city = chosenCity.value;
-        saveCityToLocalStorage(city);
-        displaySearchHistory();
+    function searchWeather(city){
+
         getCityWeather(city)
             .then(function (data) {
-                //saveCityToLocalStorage(data.name);
-                // displaySearchHistory();
+                saveCityToLocalStorage(data.name);
+                displaySearchHistory();
                 currentCity.textContent = data.name;
                 currentDate.textContent = moment
                     .unix(data.dt)
@@ -107,36 +114,35 @@ $(document).ready(function () {
                 currentTemp.textContent = kelvinToCelcius(data.main.temp).toFixed(2) + "°C";
                 currentWind.textContent = data.wind.speed + " m/s";
                 currentHumidity.textContent = data.main.humidity + "%";
-                currentUv.textContent = data;
                 return oneCall(data.coord.lon, data.coord.lat)
             })
-
+    
             // sets color indicator for UV 
             .then(function (oneCallData) {
                 const uv = oneCallData.current.uvi;
                 currentUv.textContent = uv;
-                if (uv < 3) {
+                if (uv <= 4) {
                     currentUv.setAttribute("class", "low");
                 }
-                if (uv < 5) {
+                if (uv > 4 && uv <= 7) {
                     currentUv.setAttribute("class", "moderate");
                 }
-                if (uv >= 5 && uv <= 8) {
+                if (uv > 7 && uv <= 11) {
                     currentUv.setAttribute("class", "high");
                 }
-                if (uv >= 8 && uv <= 11) {
-                    currentUv.setAttribute("class", "veryhigh");
-                }
-                if (uv > 11) {
-                    currentUv.setAttribute("class", "extreme");
-                }
-
+                // if (uv >= 7 && uv <= 10) {
+                //     currentUv.setAttribute("class", "veryhigh");
+                // }
+                // if (uv > 10) {
+                //     currentUv.setAttribute("class", "extreme");
+                // }
+    
                 // 5 day forecast for chosen city 
                 const next5days = oneCallData.daily.slice(0, 5);
                 weatherCards.textContent = "";
                 for (let i = 0; i < next5days.length; i++) {
                     const forecast = next5days[i];
-
+    
                     const col = futureForecastCol(
                         forecast.dt,
                         forecast.temp.day,
@@ -147,6 +153,12 @@ $(document).ready(function () {
                     weatherCards.appendChild(col);
                 }
             });
+    }
+    // Search for a city and and displays data on page
+    searchForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const city = chosenCity.value;
+        searchWeather(city);
     })
 
     // Displayed in weather cards creating elements

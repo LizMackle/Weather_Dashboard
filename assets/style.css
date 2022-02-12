@@ -114,24 +114,24 @@ hr {
 
 /* UV color index */
 .low {
-    background-color: #0dec0d;
-}
-
-.moderate {
     background-color: yellow;
 }
 
-.high {
+.moderate {
     background-color: orange;
 }
 
-.veryhigh {
+.high {
+    background-color: #dd2323;
+}
+
+/* .veryhigh {
     background-color: #dd2323;
 }
 
 .extreme {
     background-color: #aa5ece;
-}
+} */
 
 @media screen and (max-width: 1700px) {
     #input-city, #submit-city, input, hr {
